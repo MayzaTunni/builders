@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #000000;
+  /* background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dots' x='0' y='0' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='12' cy='12' r='1' fill='rgba(255,255,255,0.1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23dots)'/%3E%3C/svg%3E"); */
+  background-size: 24px 24px;
+}
+
+#mouse-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.trip1 {
+  animation: trip1 3s ease-in-out forwards;
+}
+
+.trip2 {
+  animation: trip2 3s ease-in-out forwards;
+}
+
+.trip3 {
+  animation: trip3 3s ease-in-out forwards;
+}
+
+.trip4 {
+  animation: trip4 3s ease-in-out forwards;
+}
+
+.trip5 {
+  animation: trip5 3s ease-in-out forwards;
+}
+
+@keyframes trip1 {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 348px;
+  }
+}
+
+@keyframes trip2 {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 484px;
+  }
+}
+
+@keyframes trip3 {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 654px;
+  }
+}
+
+@keyframes trip4 {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 752px;
+  }
+}
+
+@keyframes trip5 {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 329px;
+  }
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Geist+Mono:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Builders</title>
+  </head>
+  <body>
+    <canvas id="mouse-effect"></canvas>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  <script>
+    const canvas = document.getElementById('mouse-effect')
+    const ctx = canvas.getContext('2d')
+
+    // =======================
+    // Resize
+    // =======================
+    function resize() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    // =======================
+    // Configurações
+    // =======================
+    const spacing = 24 // mesmo grid do background
+    const radius = 1.2 // tamanho das bolinhas
+    const baseOpacity = 0.1 // opacidade padrão
+    const maxOpacity = 0.85 // opacidade perto do mouse
+
+    const influenceRadius = 160 // raio de influência
+    const distortionStrength = 0.35 // força da atração
+
+    // =======================
+    // Mouse
+    // =======================
+    const mouse = {
+      x: -9999,
+      y: -9999,
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX
+      mouse.y = e.clientY
+    })
+
+    // =======================
+    // Render loop
+    // =======================
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      for (let x = spacing / 2; x < canvas.width; x += spacing) {
+        for (let y = spacing / 2; y < canvas.height; y += spacing) {
+          const dx = mouse.x - x
+          const dy = mouse.y - y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+
+          let opacity = baseOpacity
+          let offsetX = 0
+          let offsetY = 0
+
+          if (dist < influenceRadius) {
+            const t = 1 - dist / influenceRadius
+
+            // Opacidade dinâmica
+            opacity = baseOpacity + t * (maxOpacity - baseOpacity)
+
+            // Distorção (atração para o cursor)
+            offsetX = dx * t * distortionStrength
+            offsetY = dy * t * distortionStrength
+          }
+
+          ctx.fillStyle = `rgba(255,255,255,${opacity})`
+          ctx.beginPath()
+          ctx.arc(x + offsetX, y + offsetY, radius, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
+
+      requestAnimationFrame(draw)
+    }
+
+    draw()
+  </script>
+</html>
